@@ -33,8 +33,14 @@ from demo_configs import (
     THEME_COLOR_SECONDARY,
     THUMBNAIL,
 )
-from src.utils.callback_helpers import get_example_image
-from src.utils.global_vars import LATENT_ENCODED_FILE, STEP_1_FILE, STEP_2_FILE, STEP_4_FILE, STEP_5_FILE_DEFAULT
+from src.utils.callback_helpers import (
+    get_example_image,
+    LATENT_ENCODED_FILE,
+    STEP_1_FILE,
+    STEP_2_FILE,
+    STEP_4_FILE,
+    STEP_5_FILE_DEFAULT
+)
 
 # Initialize available QPUs
 try:

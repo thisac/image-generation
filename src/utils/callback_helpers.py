@@ -19,7 +19,6 @@ import random
 import time
 from pathlib import Path
 from typing import Optional
-from src.utils.global_vars import LATENT_ENCODED_FILE, LATENT_QPU_FILE, STEP_1_FILE, STEP_2_FILE, STEP_4_FILE, STEP_5_FILE
 import torch
 
 import networkx as nx
@@ -39,6 +38,16 @@ PROBLEM_DETAILS_PATH = f"{JSON_FILE_DIR}/problem_details.json"
 IMAGE_GEN_FILE_PREFIX = "generated_epoch_"
 IMAGE_RECON_FILE_PREFIX = "reconstructed_epoch_"
 LOSS_PREFIX = "loss_"
+
+MODEL_DIAGRAM_PATH = "assets/model_diagram/"
+LATENT_ENCODED_FILE = MODEL_DIAGRAM_PATH + "latent_encoded.json"
+LATENT_QPU_FILE = MODEL_DIAGRAM_PATH + "latent_qpu.json"
+STEP_1_FILE = MODEL_DIAGRAM_PATH + "step_1_input.png"
+STEP_2_FILE = MODEL_DIAGRAM_PATH + "step_2_encode.png"
+STEP_4_FILE = MODEL_DIAGRAM_PATH + "step_4_decode.png"
+STEP_5_FILE = MODEL_DIAGRAM_PATH + "step_5_output.png"
+STEP_5_FILE_DEFAULT = MODEL_DIAGRAM_PATH + "step_5_output_default.png"
+
 
 def get_example_image(index: int = 0) -> torch.Tensor:
     """Gets the image at ``index`` in the MNIST dataset.
@@ -195,6 +204,7 @@ def execute_training(
             )
 
         fig_output = model.generate_output(
+            latent_qpu_file=LATENT_QPU_FILE,
             sharpen=SHARPEN_OUTPUT,
             save_to_file=f"{JSON_FILE_DIR}/{IMAGE_GEN_FILE_PREFIX}{epoch+1}.json",
         )

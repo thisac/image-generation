@@ -43,17 +43,18 @@ from src.utils.callback_helpers import (
     IMAGE_GEN_FILE_PREFIX,
     IMAGE_RECON_FILE_PREFIX,
     JSON_FILE_DIR,
+    LATENT_ENCODED_FILE,
+    LATENT_QPU_FILE,
     LOSS_PREFIX,
     MODEL_PATH,
     PROBLEM_DETAILS_PATH,
+    STEP_2_FILE,
+    STEP_4_FILE,
+    STEP_5_FILE,
     create_model_files,
     execute_training,
     generate_model_diagram,
     generate_model_fig,
-)
-
-from src.utils.global_vars import (
-    STEP_4_FILE, STEP_5_FILE, LATENT_ENCODED_FILE, STEP_2_FILE, LATENT_QPU_FILE
 )
 
 
@@ -770,7 +771,7 @@ def generate(
         )
 
     else:
-        fig_output = model.generate_output(sharpen=SHARPEN_OUTPUT)
+        fig_output = model.generate_output(latent_qpu_file=LATENT_QPU_FILE, sharpen=SHARPEN_OUTPUT)
         fig_reconstructed = model.generate_reconstucted_samples(sharpen=SHARPEN_OUTPUT)
 
     model.losses = loss_data
