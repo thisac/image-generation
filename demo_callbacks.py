@@ -181,6 +181,7 @@ class CheckQpuAndUpdateModelReturn(NamedTuple):
     step_2_img: str = dash.no_update
     step_4_img: str = dash.no_update
     step_5_img: str = dash.no_update
+    has_loaded_diagram: bool = True
 
 @dash.callback(
     Output("popup", "className"),
@@ -193,12 +194,14 @@ class CheckQpuAndUpdateModelReturn(NamedTuple):
     Output("step-2-encode-img", "src"),
     Output("step-4-decode-img", "src"),
     Output("step-5-output-img", "src"),
+    Output("has-loaded-diagram", "data"),
     inputs=[
         Input("model-file-name", "value"),
         Input("qpu-setting", "value"),
         Input("n-latents", "value"),
         Input("setting-tabs", "value"),
         State("example-image", "data"),
+        State("has-loaded-diagram", "data"),
     ]
 )
 def check_qpu_and_update_model(
@@ -207,6 +210,7 @@ def check_qpu_and_update_model(
     n_latents: int,
     setting_tabs_value: str,
     example_image: list,
+    has_loaded_diagram: bool,
 ) -> CheckQpuAndUpdateModelReturn:
     """Checks whether user has access to QPU associated with model and updates the model details
     when model changes.
@@ -217,6 +221,7 @@ def check_qpu_and_update_model(
         n_latents: The dimension of the latent space.
         setting_tabs_value: The currently selected settings tab.
         example_image: The example image to show all the steps for in the UI.
+        has_loaded_diagram: Keeps track of whether this is a page load.
 
     Returns:
         CheckQpuAndUpdateModelReturn named tuple:
@@ -230,6 +235,7 @@ def check_qpu_and_update_model(
             step_2_img: The src url for the encode image.
             step_4_img: The src url for the decode image.
             step_5_img: The src url for the output image.
+            has_loaded_diagram: Keeps track of whether this is a page load.
     """
     switched_to_generate_tab = ctx.triggered_id == "setting-tabs" and setting_tabs_value == "generate-tab"
 
@@ -273,7 +279,8 @@ def check_qpu_and_update_model(
             latent_mapping=latent_mapping,
             step_2_img=f"{STEP_2_FILE}?force_refresh={force_refresh}",
             step_4_img=f"{STEP_4_FILE}?force_refresh={force_refresh}",
-            step_5_img=f"{STEP_5_FILE}?force_refresh={force_refresh}",
+            step_5_img=f"{STEP_5_FILE}?force_refresh={force_refresh}" if has_loaded_diagram else dash.no_update,
+            has_loaded_diagram=False if not ctx.triggered_id else True,
         )
 
     # No model data, proceed with defaults

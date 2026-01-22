@@ -493,6 +493,7 @@ def create_interface():
         id="app-container",
         children=[
             # Below are any temporary storage items, e.g., for sharing data between callbacks.
+            dcc.Store(id="has-loaded-diagram"),
             dcc.Store(id="last-trained-model"),
             dcc.Store(id="last-saved-id"),
             dcc.Store(id="latent-mapping"),
