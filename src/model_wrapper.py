@@ -63,7 +63,7 @@ def train_grbm(opt_step: int, epoch: int) -> bool:
     return epoch < 6 and opt_step % 10 == 0
 
 
-def get_dataset(image_size: int) -> DataLoader:
+def get_dataset(image_size: int) -> MNIST:
     transform = Compose(
         [
             Resize((image_size, image_size)),

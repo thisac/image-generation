@@ -133,9 +133,9 @@ def update_model_diagram_imgs(
         latent_mapping: The mapping of the nodes to latent space indices.
 
     Returns:
-        step-2-encode-img: The src url for the encode image.
-        step-4-decode-img: The src url for the decode image.
-        step-5-output-img: The src url for the output image.
+        step-2-encode-img: The file path for the encode image.
+        step-4-decode-img: The file path for the decode image.
+        step-5-output-img: The file path for the output image.
         fig-qpu-graph: The QPU graph figure.
         fig-encoded-graph: The not QPU graph figure.
         latent-space-vector: The Dash HTML for the plus and minus ones visual vector.
@@ -232,9 +232,9 @@ def check_qpu_and_update_model(
             fig_encoded_graph: The not QPU graph figure.
             latent_diagram_size: The dimension of the latent space.
             latent_mapping: The mapping of the nodes to latent space indices.
-            step_2_img: The src url for the encode image.
-            step_4_img: The src url for the decode image.
-            step_5_img: The src url for the output image.
+            step_2_img: The file path for the encode image.
+            step_4_img: The file path for the decode image.
+            step_5_img: The file path for the output image.
             has_loaded_diagram: Keeps track of whether this is a page load.
     """
     switched_to_generate_tab = ctx.triggered_id == "setting-tabs" and setting_tabs_value == "generate-tab"
